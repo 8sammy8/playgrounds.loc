@@ -11,26 +11,38 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
+        $roles = [
             ['name' => 'admin'],
             ['name' => 'partner'],
             ['name' => 'designer'],
         ];
-        \Illuminate\Support\Facades\DB::table('roles')->insert($data);
+        \Illuminate\Support\Facades\DB::table('roles')->insert($roles);
 
-        $roles = \App\Models\Role::all();
+        $roleUser[] = [
+            'user_id' => 1,
+            'role_id' => 1
+        ];
+        $roleUser[] = [
+            'user_id' => 2,
+            'role_id' => 1
+        ];
+        $roleUser[] = [
+            'user_id' => 3,
+            'role_id' => 2
+        ];
+        $roleUser[] = [
+            'user_id' => 4,
+            'role_id' => 2
+        ];
+        $roleUser[] = [
+            'user_id' => 5,
+            'role_id' => 3
+        ];
+        $roleUser[] = [
+            'user_id' => 6,
+            'role_id' => 3
+        ];
 
-        $users = \App\User::all();
-
-        if($users->isNotEmpty() && $roles->isNotEmpty()){
-            foreach ($users as $user){
-                $dataRole[] = [
-                    'user_id' => $user->id,
-                    'role_id' => $user->id == 1 ? 1 : rand(1,3)
-                ];
-            }
-            \Illuminate\Support\Facades\DB::table('role_user')->insert($dataRole);
-        }
-
+        \Illuminate\Support\Facades\DB::table('role_user')->insert($roleUser);
     }
 }

@@ -12,14 +12,38 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User;
 
-        $user->email = 'test@playgrounds.com';
-        $user->name = 'admin';
-        $user->password = bcrypt('12345678');
+        $users[] = [
+            'email' => 'admin1@playgrounds.com',
+            'name' => 'admin1',
+            'password' => bcrypt('12345678')
+        ];
+       $users[] = [
+            'email' => 'admin2@playgrounds.com',
+            'name' => 'admin2',
+            'password' => bcrypt('12345678')
+        ];
+        $users[] = [
+            'email' => 'partner1@playgrounds.com',
+            'name' => 'partner1',
+            'password' => bcrypt('12345678')
+        ];
+       $users[] = [
+            'email' => 'partner2@playgrounds.com',
+            'name' => 'partner2',
+            'password' => bcrypt('12345678')
+        ];
+        $users[] = [
+            'email' => 'designer1@playgrounds.com',
+            'name' => 'designer1',
+            'password' => bcrypt('12345678')
+        ];
+       $users[] = [
+            'email' => 'designer2@playgrounds.com',
+            'name' => 'designer2',
+            'password' => bcrypt('12345678')
+        ];
 
-        $user->save();
-
-        factory(User::class, 20)->create();
+        \Illuminate\Support\Facades\DB::table('users')->insert($users);
     }
 }

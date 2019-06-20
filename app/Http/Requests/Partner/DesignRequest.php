@@ -62,6 +62,7 @@ class DesignRequest extends FormRequest
             'model'                  => 'required|string',
             'posts_clamps'           => 'required|string',
             'metal_rails'            => 'required|string',
+            'roofs'                  => 'required|string',
             'slides'                 => 'required|string',
             'plastic_climbers'       => 'required|string',
             'panels'                 => 'required|string',

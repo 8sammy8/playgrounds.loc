@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateColorScheme extends Migration
+class CreateColors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateColorScheme extends Migration
      */
     public function up()
     {
-        Schema::create('color_schemes', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('proportions');
-            $table->tinyInteger('default')->nullable();
-            $table->string('img')->nullable();
         });
     }
 
@@ -29,6 +26,6 @@ class CreateColorScheme extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('color_schemes');
+        Schema::dropIfExists('colors');
     }
 }

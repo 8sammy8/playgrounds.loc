@@ -35,42 +35,44 @@
             <div class="card card-body">
 
                 <div class="media">
-                    <label class="form-check-label" for="color_scheme[1]">
-                        <img src="{{ asset('storage/img/color-scheme/background.png') }}" class="align-self-end mr-3" alt="..." style="max-width: 100px;">
-                        <span class="small">Background</span>
-                    </label>
-                    <div class="media-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="color_scheme" id="color_scheme[1]" value="1" checked >
-                        </div>
-                    </div>
-
-                    <label class="form-check-label" for="color_scheme[2]">
-                        <img src="{{ asset('storage/img/color-scheme/beachball.png') }}" class="align-self-end mr-3" alt="..." style="max-width: 100px;">
-                        <span class="small">Beachball</span>
-                    </label>
-                    <div class="media-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="color_scheme" id="color_scheme[2]" value="3" >
-                        </div>
-                    </div>
-
-                    <label class="form-check-label" for="color_scheme[3]">
-                        <img src="{{ asset('storage/img/color-scheme/cascade.png') }}" class="align-self-end mr-3" alt="..." style="max-width: 100px;">
-                        <span class="small">Cascade</span>
-                    </label>
-                    <div class="media-body">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="color_scheme" id="color_scheme[3]" value="3" >
-                        </div>
-                    </div>
+                    @if(isset($colorSchemes) && $colorSchemes->isNotEmpty())
+                        @foreach($colorSchemes as $colorScheme)
+                            <label class="form-check-label" for="color_scheme[{{ $colorScheme->id }}]">
+                                @if($colorScheme->img && file_exists(asset("storage/img/color-scheme/{$colorScheme->img}")))
+                                    <img src="{{ asset("storage/img/color-scheme/{$colorScheme->img}") }}"
+                                         class="align-self-end mr-3"
+                                         alt="{{ $colorScheme->name }}"
+                                         style="max-width: 100px;"
+                                    >
+                                @else
+                                    <img src="{{ asset('storage/img/color-scheme/default.png') }}"
+                                         class="align-self-end mr-3"
+                                         alt="default"
+                                         style="max-width: 100px;"
+                                    >
+                                @endif
+                                <span class="small">{{ $colorScheme->name }}</span>
+                            </label>
+                            <div class="media-body">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           name="color_scheme" id="color_scheme[{{ $colorScheme->id }}]"
+                                           value="{{ $colorScheme->id }}"
+                                           @if ($loop->first)
+                                           checked
+                                           @endif
+                                    >
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
 
                     <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#customColorSchemeExample" aria-expanded="false" aria-controls="customcolor_schemeExample">
                         <label class="form-check-label" for="custom_color_scheme">Custom</label>
                     </button>
                     <div class="media-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="color_scheme" id="custom_color_scheme" value="" >
+                            <input class="form-check-input" type="radio" name="color_scheme" id="custom_color_scheme" value="">
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,6 @@ class CreateDesignRequest extends Migration
     {
         Schema::create('design_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned()->index();
             $table->string('input_quote');
             $table->integer('request_type');
             $table->string('structure_name')->nullable();
@@ -23,19 +22,21 @@ class CreateDesignRequest extends Migration
             $table->string('model')->nullable();
             $table->string('posts_clamps');
             $table->string('metal_rails');
+            $table->string('roofs');
             $table->string('slides');
             $table->string('plastic_climbers');
             $table->string('panels');
             $table->string('panel_accents');
             $table->string('accessories');
             $table->string('bridges');
-
-            $table->bigInteger('color_scheme_id')->unsigned()->index();
-
-            $table->bigInteger('responsible_id')->unsigned()->index();
             $table->integer('priority');
-            $table->integer('complete_at');
+            $table->timestamp('complete_at');
             $table->integer('status');
+            $table->text('notes');
+
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->bigInteger('color_scheme_id')->unsigned()->index();
+            $table->bigInteger('responsible_id')->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('user_id')
