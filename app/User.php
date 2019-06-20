@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +37,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
+    public function roleName()
+    {
+        return $this->morphTo(Role::class,'role_user', '');
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeDesigners($query)
+    {
+        $query->with('roles');
+        $query->whereHas('roles', function($query){
+            $query->where("role_id", 3);
+        });
+
+        return $query;
+    }
 }
