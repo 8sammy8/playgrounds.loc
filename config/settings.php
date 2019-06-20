@@ -9,14 +9,45 @@ return [
     'folder_admin' => 'admin',
 
     'priority' => [
-        'normal' => '1',
-        'high' => '2',
-        'critical' => '3'
+        1 => [
+            'title' => 'normal',
+            'color' => 'blue'
+        ],
+        2 => [
+            'title' => 'high',
+            'color' => 'yellow'
+        ],
+        3 => [
+            'title' => 'critical',
+            'color' => 'red'
+        ],
     ],
     'status' => [
-        '1' => 'Not started',
-        '2' => 'Working on',
-        '3' => 'Waiting',
-        '4' => 'Done',
+        1 => [
+            'title' => 'Not started',
+            'color' => 'grey'
+        ],
+        2 => [
+            'title' => 'Working on',
+            'color' => 'orange'
+        ],
+        3 => [
+            'title' => 'Waiting',
+            'color' => 'red'
+        ],
+        4 => [
+            'title' => 'Done',
+            'color' => 'blue'
+        ],
     ],
+
+    'request_type' => [
+        1 => [
+            'title' => 'Color Change Request',
+            'color' => 'orange'
+        ]
+    ],
+    'paginate' => [
+        'designer_request_all' => 20
+    ]
 ];

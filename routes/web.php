@@ -27,10 +27,10 @@ Route::domain("{$domain_partner}.playgrounds.loc")->namespace('Partner')->name('
 
 });
 
-$domain_designer = config("settings.partner_designer");
+$domain_designer = config("settings.domain_designer");
 Route::domain("{$domain_designer}.playgrounds.loc")->namespace('Designer')->name('designer.')->group(function(){
-    Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
-    Route::post('/login', 'Auth\LoginController@login');
+//    Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
+//    Route::post('/login', 'Auth\LoginController@login');
 
     Route::get('/design-request', 'designRequestController@index')->name('design.request');
 //    Route::middleware('auth-designer')->group(function (){

@@ -14,7 +14,7 @@ class ColorSchemeTableSeeder extends Seeder
         $colorSchemes[] = [
             'name' => 'Egyptian',
             'proportions' => '50/50',
-            'default' => 1,
+            'default' => null,
         ];
 
         $colorLayouts[] = [
@@ -31,7 +31,7 @@ class ColorSchemeTableSeeder extends Seeder
         $colorSchemes[] = [
             'name' => 'Eiffel',
             'proportions' => '34/66',
-            'default' => 1,
+            'default' => null,
         ];
 
         $colorLayouts[] = [
@@ -47,7 +47,7 @@ class ColorSchemeTableSeeder extends Seeder
         $colorSchemes[] = [
             'name' => 'Mix',
             'proportions' => '33/33/34',
-            'default' => 1,
+            'default' => null,
         ];
 
         $colorLayouts[] = [

@@ -9,9 +9,10 @@ use App\Models\ColorScheme;
 use App\Models\DesignRequest;
 use App\Http\Requests\Partner\DesignRequest as ModelRequest;
 
-class DesignRequestController extends DesignerController
+class DesignRequestController extends PartnerController
 {
     const STATUS_NOT_STARTED = 1;
+    const PRIORITY_NORMAL = 1;
     /**
      * @var DesignRequest
      */
@@ -47,8 +48,12 @@ class DesignRequestController extends DesignerController
      */
     public function index()
     {
+        $colorSchemes = $this->color_scheme::whereDefault(null)
+            ->orWhere('default', $this->getUser())
+            ->get();
+
         return view(config('settings.folder_partner').'.designRequest.index')
-            ->with('colorSchemes', $this->color_scheme::whereDefault(true)->get())
+            ->with(compact('colorSchemes'))
             ->with('colors', $this->color::all());
     }
 
@@ -69,7 +74,7 @@ class DesignRequestController extends DesignerController
 
         $this->design_request->color_scheme_id = $this->getColorScheme($request);
         $this->design_request->user_id = $this->getUser();
-        $this->design_request->priority = config('settings.priority.normal');
+        $this->design_request->priority = self::PRIORITY_NORMAL;
         $this->design_request->responsible_id = $this->getResponsible();
         $this->design_request->status = self::STATUS_NOT_STARTED;
         $this->design_request->complete_at = Carbon::tomorrow();
@@ -91,13 +96,16 @@ class DesignRequestController extends DesignerController
     protected function getColorScheme($request)
     {
         if(!$request->input('color_scheme')){
-            $colorScheme = new ColorScheme();
-            $colorScheme->save();
-            return $colorScheme->id;
+            return $this->colorSchemeStore();
         }
         else{
             return $request->input('color_scheme');
         }
+    }
+
+    protected function colorSchemeStore()
+    {
+
     }
 
     protected function getResponsible()

@@ -24,15 +24,20 @@
             <fieldset class="form-group">
                 <div class="row">
                     <legend class="col-form-label col-sm-6 pt-0">Select your design request type</legend>
+                    @foreach(config('settings.request_type') as $key => $requestType)
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="request_type" id="request_type" value="1" checked>
+                            <input class="form-check-input" type="radio" name="request_type" id="request_type" value="{{ $key }}"
+                                   @if ($loop->first)
+                                   checked
+                                   @endif
+                            >
                             <label class="form-check-label" for="request_type">
-                                Color Change Request
+                                {{ $requestType['title'] }}
                             </label>
                         </div>
                     </div>
-
+                    @endforeach
                     {{ $errors->first('request_type') }}
                 </div>
             </fieldset>

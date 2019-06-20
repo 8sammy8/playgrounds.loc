@@ -17,8 +17,12 @@ class CreateColorScheme extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('proportions');
-            $table->tinyInteger('default')->nullable();
+            $table->bigInteger('default')->nullable()->unsigned()->index();
             $table->string('img')->nullable();
+
+            $table->foreign('default')
+                ->references('id')
+                ->on('users');
         });
     }
 

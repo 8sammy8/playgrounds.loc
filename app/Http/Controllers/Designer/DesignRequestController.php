@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Designer;
 
-use App\User;
-use Carbon\Carbon;
 use App\Models\Color;
 use App\Models\ColorScheme;
 use App\Models\DesignRequest;
-use App\Http\Requests\Partner\DesignRequest as ModelRequest;
 
 class DesignRequestController extends DesignerController
 {
@@ -46,8 +43,11 @@ class DesignRequestController extends DesignerController
      */
     public function index()
     {
-        return view(config('settings.folder_partner').'.designRequest.index')
-            ->with('colorSchemes', $this->color_scheme::whereDefault(true)->get())
+        $designerRequests = $this->design_request::getRequestsByUser()
+            ->paginate(config('settings.paginate.designer_request_all'));
+
+        return view(config('settings.folder_designer').'.designRequest.index')
+            ->with(compact('designerRequests'))
             ->with('colors', $this->color::all());
     }
 
