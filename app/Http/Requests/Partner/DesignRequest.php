@@ -26,23 +26,38 @@ class DesignRequest extends FormRequest
         $validator->sometimes('color_scheme', 'required|integer', function ($input) {
             return !empty($input->color_scheme) ?? $input->color_scheme;
         });
-        $validator->sometimes('custom_color', 'required|integer', function ($input) {
-            return $input->color_scheme ? $input->custom_color : true;
+        $validator->sometimes('posts_clamps', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->posts_clamps : true;
         });
-        $validator->sometimes('first_top_color', 'required|integer', function ($input) {
-            return $input->color_scheme ? $input->first_top_color : true;
+        $validator->sometimes('metal_rails', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->metal_rails : true;
         });
-        $validator->sometimes('second_top_color', 'required|integer', function ($input) {
-            return $input->color_scheme ? $input->second_top_color : true;
+        $validator->sometimes('roofs', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->roofs : true;
+        });
+        $validator->sometimes('slides', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->slides : true;
+        });
+        $validator->sometimes('plastic_climbers', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->plastic_climbers : true;
+        });
+        $validator->sometimes('panels', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->panels : true;
+        });
+        $validator->sometimes('panel_accents', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->panel_accents : true;
+        });
+        $validator->sometimes('accessories', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->accessories : true;
+        });
+        $validator->sometimes('bridges', 'required|string|max:255', function ($input) {
+            return $input->color_scheme ? $input->bridges : true;
         });
 
         $validator->sometimes('notes', 'required|string', function($input){
             return !empty($input->notes) ?? $input->notes;
         });
 
-//        $validator->sometimes('third_top_color', 'required|integer', function ($input) {
-//            return !empty($input->custom_color) ?? $input->third_top_color;
-//        });
         return $validator;
     }
 
@@ -54,21 +69,14 @@ class DesignRequest extends FormRequest
     public function rules()
     {
         return [
-        'user_id'                    => 'required|integer',
-            'input_quote'            => 'required|string',
-            'request_type'           => 'required|integer',
-            'structure_name'         => 'required|string',
-            'sku'                    => 'required|string',
-            'model'                  => 'required|string',
-            'posts_clamps'           => 'required|string',
-            'metal_rails'            => 'required|string',
-            'roofs'                  => 'required|string',
-            'slides'                 => 'required|string',
-            'plastic_climbers'       => 'required|string',
-            'panels'                 => 'required|string',
-            'panel_accents'          => 'required|string',
-            'accessories'            => 'required|string',
-            'bridges'                => 'required|string',
+        'user_id'           => 'required|integer',
+        'quote'             => 'required|string',
+        'request_type'      => 'required|integer',
+        'structure_name'    => 'required|string',
+        'sku'               => 'required|string',
+        'model'             => 'required|string',
+        'job_name'          => 'required|string',
+        'job_location'      => 'required|string',
         ];
     }
 }

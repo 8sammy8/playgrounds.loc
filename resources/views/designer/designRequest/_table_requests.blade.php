@@ -1,13 +1,18 @@
-<div class="row col-9">
-    <table class="table table-hover table-dark">
+<style>
+    .icon:hover {
+    color: #1ab7ea;
+    }
+</style>
+    <table class="box table table-striped table-hover display responsive nowrap m-t-0 dataTable dtr-inline">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Info</th>
+            <th scope="col"><i class="fa fa-comment-o"></i></th>
             <th scope="col">Requestor</th>
             <th scope="col">Priority</th>
             <th scope="col">Type</th>
-            <th scope="col">Submission Data</th>
-            <th scope="col">Complete Data</th>
+            <th scope="col">Submission Date</th>
+            <th scope="col">Complete Date</th>
             <th scope="col">Status</th>
         </tr>
         </thead>
@@ -15,21 +20,27 @@
         @if(isset($designerRequests) && $designerRequests->isNotEmpty())
             @foreach($designerRequests as $designerRequest)
                 <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>
+                        {{ $designerRequest->job_name }}: {{ $designerRequest->job_location }}
+                        {{ $designerRequest->structure_name }}
+                    </td>
+                    <td><i class="icon fa fa-comment-o"></i></td>
                     <td>{{ $designerRequest->responsible->name }}</td>
-                    <td style="background-color: {{ config("settings.priority.{$designerRequest->priority}.color") }}">
+                    <td style="background-color: {{ config("settings.priority.{$designerRequest->priority}.color") }}" class="text-white">
                         {{ config("settings.priority.{$designerRequest->priority}.title") }}
                     </td>
-                    <td style="background-color: {{ config("settings.request_type.{$designerRequest->request_type}.color") }}">
+                    <td style="background-color: {{ config("settings.request_type.{$designerRequest->request_type}.color") }}" class="text-white">
                         {{ config("settings.request_type.{$designerRequest->request_type}.title") }}
                     </td>
                     <td>
-                        {{ $designerRequest->updated_at }}
+                        {{ \Carbon\Carbon::parse($designerRequest->updated_at)->calendar() }}
                     </td>
                     <td>
-                        {{ $designerRequest->complete_at }}
+                        @if($designerRequest->complete_at)
+                            {{ \Carbon\Carbon::parse($designerRequest->complete_at)->calendar() }}
+                        @endif
                     </td>
-                    <td style="background-color: {{ config("settings.status.{$designerRequest->status}.color") }}">
+                    <td style="background-color: {{ config("settings.status.{$designerRequest->status}.color") }}" class="text-white">
                         {{ config("settings.status.{$designerRequest->status}.title") }}
                     </td>
                 </tr>
@@ -38,6 +49,4 @@
         </tbody>
     </table>
 
-{{--    {{ $paginator->links('pagination.bootstrap-4') }}--}}
     {{ $designerRequests->links("pagination::bootstrap-4") }}
-</div>

@@ -15,28 +15,22 @@ class CreateDesignRequest extends Migration
     {
         Schema::create('design_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('input_quote');
+            $table->string('quote');
+            $table->string('job_name');
+            $table->string('job_location');
             $table->integer('request_type');
             $table->string('structure_name')->nullable();
             $table->string('sku')->nullable();
             $table->string('model')->nullable();
-            $table->string('posts_clamps');
-            $table->string('metal_rails');
-            $table->string('roofs');
-            $table->string('slides');
-            $table->string('plastic_climbers');
-            $table->string('panels');
-            $table->string('panel_accents');
-            $table->string('accessories');
-            $table->string('bridges');
+
             $table->integer('priority');
-            $table->timestamp('complete_at');
+            $table->timestamp('complete_at')->nullable();
             $table->integer('status');
-            $table->text('notes');
+            $table->text('notes')->nullable();
 
             $table->bigInteger('user_id')->unsigned()->index();
             $table->bigInteger('color_scheme_id')->unsigned()->index();
-            $table->bigInteger('responsible_id')->unsigned()->index();
+            $table->bigInteger('responsible_id')->nullable()->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('user_id')

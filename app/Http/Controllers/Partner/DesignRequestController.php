@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Partner;
 
 use App\User;
 use Carbon\Carbon;
-use App\Models\Color;
 use App\Models\ColorScheme;
 use App\Models\DesignRequest;
 use App\Http\Requests\Partner\DesignRequest as ModelRequest;
@@ -21,26 +20,22 @@ class DesignRequestController extends PartnerController
      * @var ColorScheme
      */
     protected $color_scheme;
-    /**
-     * @var Color
-     */
-    protected $color;
 
     /**
      * DesignRequestController constructor.
      * @param DesignRequest $designRequest
      * @param ColorScheme $colorScheme
-     * @param Color $color
      */
     public function __construct(
         DesignRequest $designRequest,
-        ColorScheme $colorScheme,
-        Color $color
+        ColorScheme $colorScheme
     )
     {
         $this->design_request = $designRequest;
         $this->color_scheme = $colorScheme;
-        $this->color = $color;
+
+        parent::__construct();
+        $this->setView();
     }
 
     /**
@@ -52,9 +47,9 @@ class DesignRequestController extends PartnerController
             ->orWhere('default', $this->getUser())
             ->get();
 
-        return view(config('settings.folder_partner').'.designRequest.index')
+        return view($this->view)
             ->with(compact('colorSchemes'))
-            ->with('colors', $this->color::all());
+            ->with('pageHeader', 'Create design request');
     }
 
     /**
@@ -67,19 +62,25 @@ class DesignRequestController extends PartnerController
             '_token',
             'color_scheme',
             'custom_color',
-            'first_top_color',
-            'second_top_color',
-            'third_top_color'
+            'posts_clamps',
+            'metal_rails',
+            'roofs',
+            'slides',
+            'plastic_climbers',
+            'panels',
+            'panel_accents',
+            'accessories',
+            'bridges'
         ));
 
-        $this->design_request->color_scheme_id = $this->getColorScheme($request);
-        $this->design_request->user_id = $this->getUser();
-        $this->design_request->priority = self::PRIORITY_NORMAL;
-        $this->design_request->responsible_id = $this->getResponsible();
-        $this->design_request->status = self::STATUS_NOT_STARTED;
-        $this->design_request->complete_at = Carbon::tomorrow();
+        $colorScheme = $this->getColorScheme($request);
 
-        if($this->design_request->save()){
+        $this->design_request->user_id = $this->getUser();
+        $this->design_request->color_scheme_id = $colorScheme;
+        $this->design_request->priority = self::PRIORITY_NORMAL;
+        $this->design_request->status = self::STATUS_NOT_STARTED;
+
+        if($colorScheme && $this->design_request->save()){
             $result = ['status' => 'Request added'];
             return redirect()->route('partner.design.request')->with($result);
         }
@@ -91,34 +92,46 @@ class DesignRequestController extends PartnerController
 
     /**
      * @param ModelRequest $request
-     * @return int
+     * @return int|bool
      */
     protected function getColorScheme($request)
     {
         if(!$request->input('color_scheme')){
-            return $this->colorSchemeStore();
+            return $this->colorSchemeStore($request);
         }
         else{
             return $request->input('color_scheme');
         }
     }
 
-    protected function colorSchemeStore()
+    /**
+     * @param ModelRequest $request
+     * @return bool
+     */
+    protected function colorSchemeStore($request)
     {
+//        $user = \Auth::user()->name;
+//        $name = $user->name;
+//        $default = $user->id;
+        $name = 'partner3';
+        $default = 3;
 
+        $this->color_scheme->name = $name . ' '. Carbon::now();
+        $this->color_scheme->default = $default;
+
+        $this->color_scheme->roofs = $request->input('roofs');
+        $this->color_scheme->slides = $request->input('slides');
+        $this->color_scheme->panels = $request->input('panels');
+        $this->color_scheme->bridges = $request->input('bridges');
+        $this->color_scheme->metal_rails = $request->input('metal_rails');
+        $this->color_scheme->accessories = $request->input('accessories');
+        $this->color_scheme->posts_clamps = $request->input('posts_clamps');
+        $this->color_scheme->panel_accents = $request->input('panel_accents');
+        $this->color_scheme->plastic_climbers = $request->input('plastic_climbers');
+
+        return $this->color_scheme->save() ? $this->color_scheme->id : false;
     }
 
-    protected function getResponsible()
-    {
-//        $user = User::with('roles');
-//        $user->whereHas('roles', function($query){
-//            $query->where("role_id", 3);
-//        });
-
-//        $user = User::designers();
-
-        return 5;
-    }
     protected function getUser()
     {
 //        return \Auth::id();

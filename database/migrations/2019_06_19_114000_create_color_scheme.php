@@ -16,10 +16,19 @@ class CreateColorScheme extends Migration
         Schema::create('color_schemes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('proportions');
-            $table->bigInteger('default')->nullable()->unsigned()->index();
             $table->string('img')->nullable();
 
+            $table->string('posts_clamps');
+            $table->string('metal_rails');
+            $table->string('roofs');
+            $table->string('slides');
+            $table->string('plastic_climbers');
+            $table->string('panels');
+            $table->string('panel_accents');
+            $table->string('accessories');
+            $table->string('bridges');
+
+            $table->bigInteger('default')->nullable()->unsigned()->index();
             $table->foreign('default')
                 ->references('id')
                 ->on('users');

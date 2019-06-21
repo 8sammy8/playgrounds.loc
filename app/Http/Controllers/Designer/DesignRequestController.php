@@ -16,26 +16,22 @@ class DesignRequestController extends DesignerController
      * @var ColorScheme
      */
     protected $color_scheme;
-    /**
-     * @var Color
-     */
-    protected $color;
 
     /**
      * DesignRequestController constructor.
      * @param DesignRequest $designRequest
      * @param ColorScheme $colorScheme
-     * @param Color $color
      */
     public function __construct(
         DesignRequest $designRequest,
-        ColorScheme $colorScheme,
-        Color $color
+        ColorScheme $colorScheme
     )
     {
         $this->design_request = $designRequest;
         $this->color_scheme = $colorScheme;
-        $this->color = $color;
+
+        parent::__construct();
+        $this->setView();
     }
 
     /**
@@ -43,12 +39,12 @@ class DesignRequestController extends DesignerController
      */
     public function index()
     {
-        $designerRequests = $this->design_request::getRequestsByUser()
+        $designerRequests = $this->design_request::getRequestsByDesigner()
             ->paginate(config('settings.paginate.designer_request_all'));
 
         return view(config('settings.folder_designer').'.designRequest.index')
             ->with(compact('designerRequests'))
-            ->with('colors', $this->color::all());
+            ->with('pageHeader', 'All design requests');
     }
 
 }
