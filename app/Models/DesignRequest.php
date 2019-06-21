@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -51,9 +52,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DesignRequest extends Model
 {
+    use Sortable;
+
     const STATUS_COMPLETED = 5;
 
     protected $guarded = [];
+
+    public $sortable = ['user_id', 'priority', 'request_type', 'updated_at', 'complete_at', 'status'];
 
     public function responsible()
     {

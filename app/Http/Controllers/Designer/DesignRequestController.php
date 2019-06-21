@@ -39,7 +39,7 @@ class DesignRequestController extends DesignerController
      */
     public function index()
     {
-        $designerRequests = $this->design_request::getRequestsByDesigner()
+        $designerRequests = $this->design_request::sortable()->getRequestsByDesigner()
             ->paginate(config('settings.paginate.designer_request_all'));
 
         return view(config('settings.folder_designer').'.designRequest.index')

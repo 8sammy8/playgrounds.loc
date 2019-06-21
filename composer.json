@@ -12,6 +12,7 @@
         "barryvdh/laravel-debugbar": "^3.2",
         "fideloper/proxy": "^4.0",
         "graham-campbell/exceptions": "^11.3",
+        "kyslik/column-sortable": "^5.8",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0"
     },
