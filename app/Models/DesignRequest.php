@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -49,6 +50,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DesignRequest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DesignRequest whereUserId($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DesignRequest sortable($defaultParameters = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DesignRequest updateStatus($id, $status)
  */
 class DesignRequest extends Model
 {
@@ -66,16 +69,26 @@ class DesignRequest extends Model
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     * @return void
+     * @param Builder $query
+     * @return Builder
      */
-    public function scopeGetRequestsByDesigner($query)
+    public function scopeGetRequestsByDesigner(Builder $query)
     {
         $query->where('responsible_id', auth()->id());
         $query->orWhere('responsible_id', null);
         $query->whereNotIn('status', [self::STATUS_COMPLETED]);
 
         return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $id
+     * @param int $status
+     * @return mixed
+     */
+    public function scopeUpdateStatus(Builder $query, int $id, int $status)
+    {
+        return $query->where('id', $id)->update(['status' => $status]);
     }
 }

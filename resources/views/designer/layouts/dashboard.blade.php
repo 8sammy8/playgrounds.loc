@@ -60,7 +60,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">DASHBOARD</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{ route('designer.design.request') }}"><i class="fa fa-link"></i> <span>Requests</span></a></li>
+                <li class="active"><a href="{{ route('designer.design.request.index') }}"><i class="fa fa-link"></i> <span>Requests</span></a></li>
 
 
                 <li class="treeview">

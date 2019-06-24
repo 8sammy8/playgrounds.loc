@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+    @stack('css')
     <link rel="shortcut icon" href="">
 
 </head>
@@ -22,6 +23,7 @@
 @include(config('settings.folder_designer') . '.layouts.dashboard')
 
 <script src="{{ asset('js/app.js') }}"></script>
+@stack('scripts')
 
 </body>
 </html>

@@ -83,10 +83,8 @@ class DesignRequestController extends PartnerController
             $result = ['status' => 'Request added'];
             return redirect()->route('partner.design.request')->with($result);
         }
-        else{
-            $result = ['error' => 'Request not added'];
-            return back()->with($result);
-        }
+        $result = ['error' => 'Request not added'];
+        return back()->with($result);
     }
 
     /**

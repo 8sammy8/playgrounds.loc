@@ -1,18 +1,11 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+//$ipOrDomain = '127.0.0.1';
 
 $domain_partner = config("settings.domain_partner");
-Route::domain("{$domain_partner}.playgrounds.loc")->namespace('Partner')->name('partner.')->group(function () {
+
+//Route::domain("{$domain_partner}.{$ipOrDomain}")->namespace('Partner')->name('partner.')->group(function () {
+Route::prefix($domain_partner)->namespace('Partner')->name('partner.')->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     })->name('showLoginForm');
@@ -27,14 +20,16 @@ Route::domain("{$domain_partner}.playgrounds.loc")->namespace('Partner')->name('
 });
 
 $domain_designer = config("settings.domain_designer");
-Route::domain("{$domain_designer}.playgrounds.loc")->namespace('Designer')->name('designer.')->group(function () {
+Route::prefix($domain_designer)->namespace('Designer')->name('designer.')->group(function () {
+//Route::domain("{$domain_designer}.{$ipOrDomain}")->namespace('Designer')->name('designer.')->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     })->name('showLoginForm');
 
     Route::middleware(['auth', 'auth.designer'])->group(function () {
         Route::get('/home', 'homeController@index')->name('home');
-        Route::get('/design-request', 'designRequestController@index')->name('design.request');
+        Route::resource('/design-request', 'designRequestController')
+            ->except(['show', 'delete'])->names('design.request');
     });
 
 });
