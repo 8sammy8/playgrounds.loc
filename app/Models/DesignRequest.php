@@ -72,9 +72,7 @@ class DesignRequest extends Model
      */
     public function scopeGetRequestsByDesigner($query)
     {
-//        $user = \Auth::id();
-        $user = 5;
-        $query->where('responsible_id', $user);
+        $query->where('responsible_id', auth()->id());
         $query->orWhere('responsible_id', null);
         $query->whereNotIn('status', [self::STATUS_COMPLETED]);
 

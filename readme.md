@@ -9,7 +9,6 @@
 
 ## Playgrounds.loc
 
-
 - unpack playgrounds.loc.git
 - cp .env.example .env
 - php artisan key:generate
@@ -20,4 +19,12 @@
 - DB_PASSWORD=
 - php artisan db:seed
 - add subdomains (partner and designer) to server or add some other two subdomains and change config\settings.php domain_partner, domain_designer values only
+
+## Playgrounds.loc access with password for all 12345678
+- Subdomain partner:
+- partner1@playgrounds.com
+- partner2@playgrounds.com
+- Subdomain designer:
+- designer1@playgrounds.com
+- designer2@playgrounds.com
 

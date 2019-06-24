@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Partner;
 
-use App\User;
 use Carbon\Carbon;
 use App\Models\ColorScheme;
 use App\Models\DesignRequest;
@@ -44,7 +43,7 @@ class DesignRequestController extends PartnerController
     public function index()
     {
         $colorSchemes = $this->color_scheme::whereDefault(null)
-            ->orWhere('default', $this->getUser())
+            ->orWhere('default', auth()->id())
             ->get();
 
         return view($this->view)
@@ -75,7 +74,7 @@ class DesignRequestController extends PartnerController
 
         $colorScheme = $this->getColorScheme($request);
 
-        $this->design_request->user_id = $this->getUser();
+        $this->design_request->user_id = auth()->id();
         $this->design_request->color_scheme_id = $colorScheme;
         $this->design_request->priority = self::PRIORITY_NORMAL;
         $this->design_request->status = self::STATUS_NOT_STARTED;
@@ -110,14 +109,8 @@ class DesignRequestController extends PartnerController
      */
     protected function colorSchemeStore($request)
     {
-//        $user = \Auth::user()->name;
-//        $name = $user->name;
-//        $default = $user->id;
-        $name = 'partner3';
-        $default = 3;
-
-        $this->color_scheme->name = $name . ' '. Carbon::now();
-        $this->color_scheme->default = $default;
+        $this->color_scheme->name = auth()->user()->name . ' '. Carbon::now();
+        $this->color_scheme->default = auth()->id();
 
         $this->color_scheme->roofs = $request->input('roofs');
         $this->color_scheme->slides = $request->input('slides');
@@ -132,9 +125,4 @@ class DesignRequestController extends PartnerController
         return $this->color_scheme->save() ? $this->color_scheme->id : false;
     }
 
-    protected function getUser()
-    {
-//        return \Auth::id();
-        return 3;
-    }
 }

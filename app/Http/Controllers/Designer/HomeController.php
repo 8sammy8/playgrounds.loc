@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Partner;
+namespace App\Http\Controllers\Designer;
 
 
-class HomeController extends PartnerController
+class HomeController extends DesignerController
 {
     /**
      * HomeController constructor.

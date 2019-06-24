@@ -8,12 +8,12 @@
         <tr>
             <th scope="col">Info</th>
             <th scope="col"><i class="fa fa-comment-o"></i></th>
-            <th scope="col">@sortablelink('Requestor')</th>
-            <th scope="col">@sortablelink('Priority')</th>
-            <th scope="col">@sortablelink('Type')</th>
-            <th scope="col">@sortablelink('Submission Date')</th>
-            <th scope="col">@sortablelink('Complete Date')</th>
-            <th scope="col">@sortablelink('Status')</th>
+            <th scope="col">@sortablelink('user_id', 'Requestor')</th>
+            <th scope="col">@sortablelink('priority', 'Priority')</th>
+            <th scope="col">@sortablelink('request_type', 'Type')</th>
+            <th scope="col">@sortablelink('updated_at', 'Submission Date')</th>
+            <th scope="col">@sortablelink('complete_at', 'Complete Date')</th>
+            <th scope="col">@sortablelink('status', 'Status')</th>
         </tr>
         </thead>
         <tbody>

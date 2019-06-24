@@ -1,15 +1,15 @@
 <div class="col-12">
     <form action="{{ route('partner.design.store') }}" method="post">
         @csrf
-        <div class="form-group row">
-            <label for="user_id" class="col-sm-2 col-form-label">Customer ID #</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" name="user_id" id="user_id" placeholder="Customer ID" value="{{ old('user_id') }}">
-                @error('user_id')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
+{{--        <div class="form-group row">--}}
+{{--            <label for="user_id" class="col-sm-2 col-form-label">Customer ID #</label>--}}
+{{--            <div class="col-sm-6">--}}
+{{--                <input type="text" class="form-control" name="user_id" id="user_id" placeholder="Customer ID" value="{{ old('user_id') }}">--}}
+{{--                @error('user_id')--}}
+{{--                <div class="alert alert-danger">{{ $message }}</div>--}}
+{{--                @enderror--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="form-group row">
             <label for="quote" class="col-sm-2 col-form-label">Quote #</label>
             <div class="col-sm-6">

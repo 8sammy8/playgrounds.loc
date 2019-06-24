@@ -35,8 +35,8 @@
         <div class="media">
             @if(isset($colorSchemes) && $colorSchemes->isNotEmpty())
                 @foreach($colorSchemes as $colorScheme)
-                    <label class="form-check-label" for="color_scheme_data[{{ $colorScheme->id }}]">
-                        @if($colorScheme->img)
+                    <label class="form-check-label" for="color_scheme[{{ $colorScheme->id }}]">
+                        @if($colorScheme->img && file_exists(public_path("storage/img/color-scheme/{$colorScheme->img}")))
                             <img src="{{ asset("storage/img/color-scheme/{$colorScheme->img}") }}"
                                  class="align-self-end mr-3"
                                  alt="{{ $colorScheme->name }}"
@@ -53,7 +53,7 @@
                         @endif
                         <p style="max-width: 100px;"><span class="small" >{{ $colorScheme->name }}</span></p>
                     </label>
-
+                    <input type="radio" value="{{ $colorScheme->id }}" name="color_scheme" id="color_scheme[{{ $colorScheme->id }}]">
                 @endforeach
             @endif
 

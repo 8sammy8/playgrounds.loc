@@ -69,7 +69,6 @@ class DesignRequest extends FormRequest
     public function rules()
     {
         return [
-        'user_id'           => 'required|integer',
         'quote'             => 'required|string',
         'request_type'      => 'required|integer',
         'structure_name'    => 'required|string',

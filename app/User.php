@@ -73,14 +73,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_user');
     }
-    public function roleName()
-    {
-        return $this->morphTo(Role::class,'role_user', '');
-    }
 
     /**
-     * @param $query
-     * @return mixed
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeDesigners($query)
     {
